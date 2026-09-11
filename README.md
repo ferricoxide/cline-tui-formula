@@ -1,52 +1,58 @@
-# repo-template
-Generic repo template for Plus3IT repositories
+cline-tui-formula
+==================
 
-To use this template:
+A SaltStack formula designed to install and configure the [CLIne coding-assistant package](https://cline.bot/) on installation-targets.
 
-1. Select the green "Use this template" button, or [click here](https://github.com/plus3it/repo-template/generate).
-2. Select the repo Owner, give the repo a name, enter a description, select Public or Private, and click "Create repository from template".
-3. Clone the repository and create a new branch.
-4. Configure the following settings on your new repo.
-    * `GENERAL`
-        * `Features`
-            * Turn off Wikis, Sponsorships, Discussions, and Projects
-        * `Pull Requests`
-            * Turn off Squash Merging
-            * Turn off Rebase Merging
-            * Turn on Allow Auto-Merge
-            * Turn on Automatically delete head branches
-        * `Pushes`
-            * Limit how many branches can be updated in a single push: 2
-    * `COLLABORATORS and TEAMS`
-        * `Manage Access`
-            * Add relevant team roles, for example
-            * `tardigrade-admins` (Admin)
-            * `terraform` (Write)
-            * `releasebot` (Write)
-    * `Branches`
-        * `Create Branch Protection rule` for `main`
-            * Turn on Require pull request before merging
-            * Turn on Require approvals
-            * Turn on Dismiss stale pull requests...
-        * `Required Status Checks`
-            * As relevant to projects, for example
-                * WIP
-                * lint/actionlint
-                * lint/tardigradelint
-                * test / mockstacktest                
-            * Turn on Do not allow bypassing the above settings
-5. Edit the following files to customize them for the new repository:
-    * `LICENSE`
-        * Near the end of the file, edit the date and change the repository name
-    * `CHANGELOG.template.md`
-        * Rename to `CHANGELOG.md`, replacing the repo-template changelog
-        * Edit templated items for the new repo
-    * `.bumpversion.cfg`
-        * Edit the version number for the new repo, ask team if not sure what to
-          start with
-    * `README.md`
-        * Replace contents for the new repo
-    * `.github/`
-        * Inspect dependabot and workflow files in case changes are needed for
-          the new repo
-6. Commit the changes and open a pull request
+It is primarily expected that this formula will be run via [P3](https://www.plus3it.com/)'s "[watchmaker](https://watchmaker.readthedocs.io/en/stable/)" framework.
+
+This formula is able to install the CLIne coding-assistant utility on Linux and Windows Server operating environments. Installation for internet-connected systems may be done using:
+* Vendor-provided installation-scripts
+* NPM-based install
+
+The CLIne coding-assistant updates _frequently_. Sites that wish to use a specific version of the CLIne coding-assistant will need to specifically-target that associated install-content, possibly even to the degree that they will need to self-host it.
+
+Targeting specific versions of the CLIne coding-assistant or local copies of the install-archives can be directed to do so by adding appropriate content to the formula's associated Pillar-data (see this projct's [pillar.example](pillar.example) file for guidance).
+
+
+## Available states
+
+- [cline-tui](#cline-tui)
+- [cline-tui.clean](#cline-tui.clean)
+- [cline-tui.package](#cline-tui.package)
+- [cline-tui.package.clean](#cline-tui.package.clean)
+- [cline-tui.config](#cline-tui.config)
+- [cline-tui.config.clean](#cline-tui.config.clean)
+
+### cline-tui
+
+Executes the `package` and `config` states to install and configure the CLIne coding-assistant
+
+### cline-tui.clean
+
+Executes the `package` and `config` states' `clean` actions to fully uninstall the CLIne coding-assistant and remove previously-installed configuration files/settings (and, on Windows, associated registry entries)
+
+### cline-tui.package
+
+Executes _just_ the `package` state to install the CLIne coding-assistant package.
+
+### cline-tui.package.clean
+
+Executes _just_ the `package.clean` state to uninstall the CLIne coding-assistant package.
+
+### cline-tui.config
+
+Executes _just_ the `config` state to install/configure the CLIne coding-assistant client-configuration (etc.) files
+
+### cline-tui.config.clean
+
+Executes _just_ the `config` state to uninstall the CLIne coding-assistant client-configuration (etc.) files and, on Windows, remove any registry-keys set by prior install-runs of the formula.
+
+## Compatibility Notes:
+
+
+### Linux
+
+
+
+### Windows
+
