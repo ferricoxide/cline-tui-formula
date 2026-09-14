@@ -9,7 +9,13 @@
 include:
   - {{ sls_config_clean }}
 
-Cline Tui Package Clean Npm Removed:
+CLIne TUI Package Clean Binary Absent:
+  file.absent:
+    - name: {{ cline_tui.pkg.bin_path }}
+    - require:
+      - npm: 'CLIne TUI Package Clean Npm Removed'
+
+CLIne TUI Package Clean Npm Removed:
   npm.removed:
     - name: {{ cline_tui.pkg.name }}
     - require:
