@@ -9,20 +9,12 @@
 
 include:
   - {{ sls_package_install }}
+{%- if grains.kernel == "Linux" %}
+  - cline-tui.config.lin_file
+{%- elif grains.kernel == "Windows" %}
+  - cline-tui.config.win_file
+{%- endif %}
 
-cline-tui-config-file-file-managed:
-  file.managed:
-    - name: {{ cline_tui.config }}
-    - source: {{ files_switch(['example.tmpl'],
-                              lookup='cline-tui-config-file-file-managed'
-                 )
-              }}
-    - mode: 644
-    - user: root
-    - group: {{ cline_tui.rootgroup }}
-    - makedirs: True
-    - template: jinja
-    - require:
-      - sls: {{ sls_package_install }}
-    - context:
-        cline_tui: {{ cline_tui | json }}
+Avoid being a null-router (config/file) - CLIne coding-assistant:
+  test.nop: []
+
