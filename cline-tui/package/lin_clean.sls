@@ -8,11 +8,9 @@
 
 include:
   - {{ sls_config_clean }}
-{%- if grains.kernel == "Linux" %}
-  - cline-tui.package.lin_clean
-{%- elif grains.kernel == "Windows" %}
-  - cline-tui.package.win_clean
-{%- endif %}
 
-Avoid being a null-router (package/clean) - CLIne coding-assistant:
-  test.nop: []
+Cline Tui Package Clean Npm Removed:
+  npm.removed:
+    - name: {{ cline_tui.pkg.name }}
+    - require:
+      - sls: {{ sls_config_clean }}
