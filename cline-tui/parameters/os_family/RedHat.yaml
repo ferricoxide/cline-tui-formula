@@ -12,9 +12,11 @@
 # values: {}
 ---
 values:
+  config:
+    skel_dir: '/etc/skel/.cline'
   pkg:
     name: 'cline'
     deps:
-      - npm
-  config: ''
+      - 'npm'
+  rootgroup: root
 ...
