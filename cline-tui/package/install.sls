@@ -7,9 +7,9 @@
 
 include:
 {%- if grains.kernel == "Linux" %}
-  - cline_tui.package.lin_install
+  - cline-tui.package.lin_install
 {%- elif grains.kernel == "Windows" %}
-  - cline_tui.package.win_install
+  - cline-tui.package.win_install
 {%- endif %}
 
 Avoid being a null-router (package/install) - CLIne coding-assistant:
