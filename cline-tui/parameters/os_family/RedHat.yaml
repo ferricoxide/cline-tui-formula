@@ -15,8 +15,11 @@ values:
   config:
     skel_dir: '/etc/skel/.cline'
   pkg:
-    name: 'cline'
+    bin_path: /usr/local/bin/cline
     deps:
-      - 'npm'
+      - npm
+    module_stream: nodejs:22
+    name: cline
+    npm_dir: /usr/local/lib/node_modules/cline
   rootgroup: root
 ...
