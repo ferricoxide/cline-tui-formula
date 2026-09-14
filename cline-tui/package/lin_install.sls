@@ -5,10 +5,21 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as cline_tui with context %}
 
+{%- if cline_tui.pkg.module_stream is defined %}
+CLIne TUI Package Install Appstream Module Enabled:
+  cmd.run:
+    - name: 'dnf module -y enable {{ cline_tui.pkg.module_stream }}'
+    - unless: 'dnf module list --enabled {{ cline_tui.pkg.module_stream }}'
+{%- endif %}
+
 {%- if cline_tui.pkg.deps %}
 CLIne TUI Package Install Dependencies Installed:
   pkg.installed:
     - pkgs: {{ cline_tui.pkg.deps | json }}
+    {%- if cline_tui.pkg.module_stream is defined %}
+    - require:
+      - cmd: 'CLIne TUI Package Install Appstream Module Enabled'
+    {%- endif %}
 {%- endif %}
 
 CLIne TUI Package Install Npm Installed:
