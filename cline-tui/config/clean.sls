@@ -7,10 +7,11 @@
 {%- from tplroot ~ "/map.jinja" import mapdata as cline_tui with context %}
 
 include:
-  - {{ sls_service_clean }}
+{%- if grains.kernel == "Linux" %}
+  - cline-tui.config.lin_clean
+{%- elif grains.kernel == "Windows" %}
+  - cline-tui.config.win_clean
+{%- endif %}
 
-cline-tui-config-clean-file-absent:
-  file.absent:
-    - name: {{ cline_tui.config }}
-    - require:
-      - sls: {{ sls_service_clean }}
+Avoid being a null-router (config/clean) - CLIne coding-assistant:
+  test.nop: []
