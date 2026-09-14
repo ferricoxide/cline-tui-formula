@@ -1,0 +1,18 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+
+cline_tui:
+  config:
+    files:
+      data/settings/global-settings.json: |-
+        {
+          "telemetry": false
+        }
+      data/settings/providers.json: |-
+        {
+          "apiProvider": "openllm",
+          "openLlmBaseUrl": "https://agent-gateway.enterprise.internal/v1"
+        }
+      rules/global_rules.md: |-
+        # Enterprise Rules
+        - Always review generated code before executing.
