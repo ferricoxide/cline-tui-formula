@@ -13,6 +13,8 @@
 ---
 values:
   pkg:
-    name: cline-tui-redhat
-  config: /etc/cline-tui.conf
+    name: 'cline'
+    deps:
+      - npm
+  config: ''
 ...
