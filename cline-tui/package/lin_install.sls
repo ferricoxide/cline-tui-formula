@@ -36,7 +36,6 @@ CLIne TUI Package Install Permissions Managed:
     - file_mode: '0755'
     - name: {{ cline_tui.pkg.npm_dir }}
     - recurse:
-      - dir_mode
-      - file_mode
+      - mode
     - require:
       - npm: 'CLIne TUI Package Install Npm Installed'
