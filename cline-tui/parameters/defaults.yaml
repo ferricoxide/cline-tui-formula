@@ -4,9 +4,10 @@
 # Set default values.
 ---
 values:
+  config:
+    files: {}
   pkg:
+    bin_path: ''
+    deps: []
     name: ''
-    deps:
-      - npm
-  config: ''
 ...
