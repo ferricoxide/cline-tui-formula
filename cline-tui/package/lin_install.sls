@@ -5,16 +5,38 @@
 {%- set tplroot = tpldir.split('/')[0] %}
 {%- from tplroot ~ "/map.jinja" import mapdata as cline_tui with context %}
 
-{%- if cline_tui.pkg.deps %}
-Cline Tui Package Install Dependencies Installed:
-  pkg.installed:
-    - pkgs: {{ cline_tui.pkg.deps | json }}
+{%- if cline_tui.pkg.module_stream is defined %}
+CLIne TUI Package Install Appstream Module Enabled:
+  dnf_module.enabled:
+    - name: {{ cline_tui.pkg.module_stream }}
 {%- endif %}
 
-Cline Tui Package Install Npm Installed:
+{%- if cline_tui.pkg.deps %}
+CLIne TUI Package Install Dependencies Installed:
+  pkg.installed:
+    - pkgs: {{ cline_tui.pkg.deps | json }}
+    {%- if cline_tui.pkg.module_stream is defined %}
+    - require:
+      - dnf_module: 'CLIne TUI Package Install Appstream Module Enabled'
+    {%- endif %}
+{%- endif %}
+
+CLIne TUI Package Install Npm Installed:
   npm.installed:
+    - global: True
     - name: {{ cline_tui.pkg.name }}
     {%- if cline_tui.pkg.deps %}
     - require:
-      - pkg: Cline Tui Package Install Dependencies Installed
+      - pkg: 'CLIne TUI Package Install Dependencies Installed'
     {%- endif %}
+
+CLIne TUI Package Install Permissions Managed:
+  file.directory:
+    - dir_mode: '0755'
+    - file_mode: '0755'
+    - name: {{ cline_tui.pkg.npm_dir }}
+    - recurse:
+      - dir_mode
+      - file_mode
+    - require:
+      - npm: 'CLIne TUI Package Install Npm Installed'
