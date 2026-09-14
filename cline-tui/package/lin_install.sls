@@ -7,8 +7,9 @@
 
 {%- if cline_tui.pkg.module_stream is defined %}
 CLIne TUI Package Install Appstream Module Enabled:
-  dnf_module.enabled:
-    - name: {{ cline_tui.pkg.module_stream }}
+  cmd.run:
+    - name: 'dnf module -y enable {{ cline_tui.pkg.module_stream }}'
+    - unless: 'dnf module list --enabled {{ cline_tui.pkg.module_stream }}'
 {%- endif %}
 
 {%- if cline_tui.pkg.deps %}
@@ -17,7 +18,7 @@ CLIne TUI Package Install Dependencies Installed:
     - pkgs: {{ cline_tui.pkg.deps | json }}
     {%- if cline_tui.pkg.module_stream is defined %}
     - require:
-      - dnf_module: 'CLIne TUI Package Install Appstream Module Enabled'
+      - cmd: 'CLIne TUI Package Install Appstream Module Enabled'
     {%- endif %}
 {%- endif %}
 
